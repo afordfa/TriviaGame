@@ -1,0 +1,24 @@
+.page-header {
+	text-align: center;
+}
+
+body {
+	text-align: center;
+}
+
+
+.timerSection {
+
+  /* Typography */
+  text-align: center;
+  font-size: 120px;
+  font-family: monospace;
+
+  /* Visual */
+  /*background: black;*/
+  color: green;
+}
+
+.timerSectionRed {
+	color: red;
+}

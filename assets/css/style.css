@@ -28,13 +28,9 @@ body {
 
 .timerSection {
 
-  /* Typography */
   text-align: center;
   font-size: 64px;
   font-family: 'Fredericka the Great';
-
-  /* Visual */
-  /*background: black;*/
   color: green;
 }
 

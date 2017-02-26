@@ -165,7 +165,7 @@ $(document).ready(function() {
 		//loops through the array of possible answers and displays each one to the DOM as a button
 		for (var i = 0; i < currentChoices.length; i++) {
 			var getChoicesSection = $(".choicesSection");
-			var choiceListItem = $("<div><button class = \"answer\" value = " + i + " > <h3>" + currentChoices[i] + "</h3></button></div>");
+			var choiceListItem = $("<div><button class = \"answer btn btn-default\" value = " + i + " > <h3>" + currentChoices[i] + "</h3></button></div>");
 			getChoicesSection.append(choiceListItem);
 		}
 
@@ -296,7 +296,7 @@ $(document).ready(function() {
 		$(".questionSection").empty();
 		$(".choicesSection").empty();
 		$(".timerSection").empty();
-		$(".startSection").append("<button class = \"startGame\">Play Again</button>");
+		$(".startSection").append("<button class = \"startGame btn btn-default\">Play Again</button>");
 		$(".choicesSection").append("<div class = \"scores\">Correct: " + scoreCorrect + " </div>");
 		$(".choicesSection").append("<div class = \"scores\">Incorrect: " + scoreIncorrect + " </div>");
 		$(".choicesSection").append("<div class = \"scores\">Unanswered: " + scoreUnanswered + " </div>");

@@ -51,7 +51,7 @@ body {
   font-size: 36px;
 }
 
-.btn {
+.answer {
   margin: 10px;
   width: 600px;
 }
@@ -65,4 +65,13 @@ body {
   font-family: 'Smythe', cursive;
   font-size: 26pt;
   margin-bottom: 20px
+}
+
+.moreInfo {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+img {
+  width: 400px;
+  height: auto;
 }

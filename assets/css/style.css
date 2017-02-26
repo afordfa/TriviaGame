@@ -1,9 +1,28 @@
+/*
+font-family: 'Special Elite', cursive;
+font-family: 'Fredericka the Great', cursive;
+font-family: 'Smythe', cursive;
+*/
+
+
 .page-header {
 	text-align: center;
+
+}
+
+ .header {
+  font-weight: bolder;
+  font-size: 64pt;
+}
+
+.subhead {
+  font-weight: bold;
+  font-size: 32pt;
 }
 
 body {
 	text-align: center;
+  font-family: 'Special Elite', cursive;
 }
 
 
@@ -11,8 +30,8 @@ body {
 
   /* Typography */
   text-align: center;
-  font-size: 120px;
-  font-family: monospace;
+  font-size: 64px;
+  font-family: 'Fredericka the Great';
 
   /* Visual */
   /*background: black;*/
@@ -21,4 +40,29 @@ body {
 
 .timerSectionRed {
 	color: red;
+}
+
+.answer {
+	margin-bottom: 30px;
+}
+
+
+.questionText {
+  font-size: 36px;
+}
+
+.btn {
+  margin: 10px;
+  width: 600px;
+}
+
+.answerText {
+  color: black;
+  font-size: 36pt;
+}
+
+.scores {
+  font-family: 'Smythe', cursive;
+  font-size: 26pt;
+  margin-bottom: 20px
 }

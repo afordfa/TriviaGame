@@ -1,14 +1,39 @@
 
 $(document).ready(function() {
 
-
-
-
-	console.log("test");
-	$(".startGame").on("click", function() {
-		stop()
-		$(".timerSection").html("00:10");
-		console.log("click");
+		//default value for user choice is -1, because it is used to compare to
+		//an index value of an array. Needs to start as a non-valid value for an index position
+	var userChoice = -1;
+	var answeredQuestion = false;
+	var currentQuestion = {};
+	var counter = 0;
+	var scoreCorrect = 0;
+	var scoreIncorrect = 0;
+	var scoreUnanswered = 0;
+	var answerTimeoutId = ""
+	var timeoutId = "";
+	var intervalId = ""
+	var timeQuestion = 5;
+	
+	
+	$(document).on("click", ".startGame", function() {
+		// stop();
+		console.log(questionArray);
+		clearTimeout(timeoutId);
+		clearTimeout(answerTimeoutId);
+		clearInterval(intervalId);
+		$(".timerSection").html("5");
+		userChoice = -1;
+		answeredQuestion = false;
+		currentQuestion = {};
+		counter = 0;
+		scoreCorrect = 0;
+		scoreIncorrect = 0;
+		scoreUnanswered = 0;
+		timeoutId = "";
+		answerTimeoutId = "";
+		intervalId = "";
+		showQuestion(); 
 	});
 
 
@@ -24,7 +49,6 @@ $(document).ready(function() {
 		"../assets/q1.jpeg"
 		);
 
-
 	var q2 = createQuestion(	
 		// number, text, choices, correct, image
 		2,
@@ -36,7 +60,7 @@ $(document).ready(function() {
 
 	var q3 = createQuestion(	
 		// number, text, choices, correct, image
-		2,
+		3,
 		"Where was Alexander Hamilton born",
 		["Boston", "St. Kitts and Nevis", "New York City", "Barbados"],
 		1,
@@ -64,94 +88,120 @@ $(document).ready(function() {
 	
 
 	var questionArray = [q1, q2, q3];
+	
+	
 
-	console.log(questionArray);
-	console.log(questionArray[0].text);
 
 
-	var counter = 0
-	showQuestion(); 
+
+
 	function showQuestion() {
-		var currentQuestion = $("<div class = \"questionText\">" + questionArray[counter].text + "</div>");
-		$(".questionSection").append(currentQuestion);
+		$(".startSection").empty();
+		$(".questionSection").empty();
+		$(".choicesSection").empty();
+		currentQuestion = questionArray[counter];
+		console.log("array: " + questionArray);
+		console.log("counter: " + counter);
+		console.log("question: " + currentQuestion);
+		var currentQuestionText = $("<div class = \"questionText\">" + questionArray[counter].text + "</div>");
+		$(".questionSection").append(currentQuestionText);
 		var currentChoices = questionArray[counter].choices;
 		for (var i = 0; i < currentChoices.length; i++) {
 			var getChoicesSection = $(".choicesSection");
-			var choiceListItem = $("<div class = \"answer\">" + currentChoices[i] + "</div>");
-			getChoicesSection.append(choiceListItem)
-			console.log(currentChoices[i])
-			
+			var choiceListItem = $("<div><button class = \"answer btn btn-primary\" value = " + i + " > <h3>" + currentChoices[i] + "</h3></button></div>");
+			getChoicesSection.append(choiceListItem);
 		}
-
-
-
+		$(".answer").on("click", function() {
+			userChoice = this.value;
+			answeredQuestion = true;
+			clearTimeout(timeoutId);
+			clearInterval(intervalId);
+			showAnswer();
+			
+		});
 		var currentChoices = questionArray[counter].choices;
-		console.log(currentChoices);
 		start()
-		setTimeout(questionTimer, 1000 * 10);
+		timeoutId = setTimeout(questionTimer, 1000 * 5);
+	}
 
-	};
 
-
-	
+	function showAnswer() {
+		clearInterval(intervalId);
+		clearTimeout(timeoutId);
+		answerTimeoutId = setTimeout(answerTimer, 1000 * 5);
+		$(".choicesSection").empty();
+		$(".timerSection").empty();
+		$(".timerDiv").empty();
+		if (userChoice == currentQuestion.correct) {
+			scoreCorrect++;
+			var correctResponse = $("<div class = \"answerText\">Correct!</div>");
+			$(".timerSection").append(correctResponse);	
+		} else if (answeredQuestion == true) {
+			scoreIncorrect++
+			var correctResponse = $("<div class = \"answerText\">Incorrect!</div>");
+			$(".timerSection").append(correctResponse);	
+		} else {
+			scoreUnanswered++
+			var correctResponse = $("<div class = \"answerText\">Time's Up!</div>");
+			$(".timerSection").append(correctResponse);				
+		}
+	}
 
 	function questionTimer() {
   		clearInterval(intervalId)
   		$(".timerSection").removeClass("timerSectionRed");
-  		counter++;
+  		// counter++;
+  		// if (counter < questionArray.length) {
+  		// 	showAnswer();
+  		// }
+  		showAnswer();
+	}
+
+	function answerTimer () {
+		clearInterval(intervalId);
+		clearTimeout(timeoutId);
+		counter++
+		answeredQuestion = false;
   		if (counter < questionArray.length) {
   			showQuestion();
+  		} else {
+  			gameOver();
+
   		}
 	}
 
 
 
-	
 
-
-
-
-
-
-	// **********************************************
-//take out loop. start at 0 move display pieces to a function that takes a variable used to pull the array index
-//when timeout ends, use funtion to reset to new question, increase counter by 1
-//how to stop when questions are up? if statement before counter increment. if questions left, increment, otherwise, go to result page
-
-	// **********************************************
-
-
-
-	var time = 10;
 
 	function reset() {
 
-	  time = 10;
+	  timeQuestion = 5;
 
-	  $(".timerSection").html("00:10");
+	  $(".timerSection").html("00:5");
 
 	}
 
 	function start() {
-		time = 10;
-	 	$(".timerSection").html("00:10");
+		$(".timerDiv").empty();
+		timeQuestion = 5;
+		$(".timerDiv").append("<div class = \"timerSection\"></div>");
+	 	$(".timerSection").html("10");
 	 	intervalId = setInterval(count, 1000);
-
 	}
 
 	function stop() {
-
-	  clearInterval(intervalId);
-
+		timeQuestion = 0;
+	  	clearInterval(intervalId);
 	}
 
 
+
+
 	function count() {
-	 	time--;
-		var converted = timeConverter(time);
-		$(".timerSection").html(converted);
-	 	if (time <= 5) {
-	 		console.log("testing time");
+	 	timeQuestion--;
+		$(".timerSection").html(timeQuestion);
+	 	if (timeQuestion <= 5) {
 	 		$(".timerSection").addClass("timerSectionRed");
 	 	} else {
 	 		$(".timerSection").removeClass("timerSectionRed");
@@ -159,24 +209,22 @@ $(document).ready(function() {
 
 	}
 
-	function timeConverter(t) {
 
-	  var minutes = Math.floor(t / 60);
-	  var seconds = t - (minutes * 60);
+	function gameOver() {
+		//display score
+		//display restart button
+		console.log("Correct: " + scoreCorrect);
+  		console.log("Incorrect: " + scoreIncorrect);
+		$(".questionSection").empty();
+		$(".choicesSection").empty();
+		$(".timerSection").empty();
+		$(".startSection").append("<button class = \"startGame\">Play Again</button>");
+		$(".choicesSection").append("<div class = \"scores\">Correct: " + scoreCorrect + " </div>");
+		$(".choicesSection").append("<div class = \"scores\">Incorrect: " + scoreIncorrect + " </div>");
+		$(".choicesSection").append("<div class = \"scores\">Unanswered: " + scoreUnanswered + " </div>");
 
-	  if (seconds < 10) {
-	    seconds = "0" + seconds;
-	  }
-
-	  if (minutes === 0) {
-	    minutes = "00";
-	  }
-	  else if (minutes < 10) {
-	    minutes = "0" + minutes;
-	  }
-
-	  return minutes + ":" + seconds;
-	}
+	};
+	
 	// **********************************************
 
 

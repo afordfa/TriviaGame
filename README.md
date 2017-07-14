@@ -1,4 +1,4 @@
 # TriviaGame
 Trivia Game Homework
 
-Deployed at: https://hamiltrivia.herokuapp.com/
+Deployed at: https://afordfa.github.io/TriviaGame/

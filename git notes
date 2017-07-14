@@ -1,0 +1,21 @@
+git notes
+
+make changes in your branch
+
+
+git checkout master
+git pull
+
+switch back to your branch
+
+merge master into your own branch
+	git merge master
+
+	still on own branch - git push
+
+look in browser
+
+	compare and pull request - create pull request
+
+	merge pull request
+	confirm merge
